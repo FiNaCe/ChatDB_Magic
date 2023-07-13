@@ -9,6 +9,7 @@ forked from https://github.com/huchenxucs/ChatDB
 
 # Run and Use:
 - Follow [README](README_raw.md) instructions.
+- Quick demo:
 ```angular2html
     pip install -r requirements.txt
     python chatdb.py
