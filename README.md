@@ -7,5 +7,5 @@ forked from https://github.com/huchenxucs/ChatDB
 - Default DB changed to SQLite, you can set back to mysql in .env file.
     > DB_TYPE=sqlite or DB_TYPE=mysql
 
-# Run and Usage:
+# Run and Use:
 - Follow [README](README_raw.md) instructions.
