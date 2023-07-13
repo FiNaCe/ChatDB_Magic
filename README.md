@@ -1,4 +1,4 @@
-# ChatDB: Augmenting LLMs with Databases as Their Symbolic Memory [Support SQLite database]
+# ChatDB Magic: Augmenting LLMs with Databases as Their Symbolic Memory [Support SQLite database]
 
 forked from https://github.com/huchenxucs/ChatDB
 
