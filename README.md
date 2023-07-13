@@ -41,5 +41,6 @@ forked from https://github.com/huchenxucs/ChatDB
   2. Open chatdb.py, set init_db = True to False, to disable create and insert sample data.
   3. Open table_schema.py and add your table schema and then add these variables to `tables` list at the bottom.
   4. Run chatdb.py
-  5. input your query, like the above demo.
+  5. Input your query, like the demo above.
+  Also, you can change sql_examples.py to use your own examples.
 ```
