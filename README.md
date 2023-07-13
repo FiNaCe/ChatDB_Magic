@@ -11,6 +11,7 @@ forked from https://github.com/huchenxucs/ChatDB
 - Follow [README](README_raw.md) instructions.
 - Quick demo:
 ```angular2html
+    copy .env.template .env     # Set your OpenAI key and host, if use mysql, need to set host, port, name, password.
     pip install -r requirements.txt
     python chatdb.py
 
@@ -32,4 +33,13 @@ forked from https://github.com/huchenxucs/ChatDB
     no results found.
     
     Finish!
+```
+- Use your own data:
+```angular2html
+  I fixed some bugs, it's better to follow these steps:
+  1. Put your sqlite db file to replace try1024.db. 
+  2. Open chatdb.py, set init_db = True to False, to disable create and insert sample data.
+  3. Open table_schema.py and add your table schema and then add these variables to `tables` list at the bottom.
+  4. Run chatdb.py
+  5. input your query, like the above demo.
 ```

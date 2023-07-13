@@ -2,10 +2,10 @@ import sqlite3
 from prettytable import PrettyTable
 
 
-def sql_result_to_table_str(sql_result):
+def sql_result_to_table_str(sql_result,cursor):
     # Create a PrettyTable object
     table = PrettyTable()
-    table.field_names = [description[0] for description in sql_result.description]
+    table.field_names = [description[0] for description in cursor.description]
 
     # Add rows to the table
     for row in sql_result:
@@ -19,8 +19,8 @@ class SQLiteDB(object):
         self.db_path = db_path
         self.user = user
         self.password = password
-        self.conn = None
-        self.cursor = None
+        self.conn = sqlite3.connect(self.db_path)
+        self.cursor = self.conn.cursor()
 
     def connect(self):
         self.conn = sqlite3.connect(self.db_path)
@@ -34,7 +34,8 @@ class SQLiteDB(object):
 
     def execute_sql(self, sql, raise_err=False):
         try:
-            self.connect()
+            # self.connect()
+            cursor = None
             for sub_sql in sql.split(";"):
                 sub_sql = sub_sql.strip()
                 if len(sub_sql) > 0:
@@ -48,12 +49,12 @@ class SQLiteDB(object):
                 raise e
             else:
                 return e, error_message
-        finally:
-            self.disconnect()
+        # finally:
+        #     self.disconnect()
 
         # convert query result to string
         if result:
-            out_str = sql_result_to_table_str(self.cursor)
+            out_str = sql_result_to_table_str(result,self.cursor)
         else:
             if "create" in sql.lower():
                 out_str = "create table successfully."

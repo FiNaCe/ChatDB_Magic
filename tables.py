@@ -3,7 +3,8 @@ import re
 import pandas as pd
 from config import cfg
 from mysql import MySQLDB
-from fruit_shop_schema import tables
+# from fruit_shop_schema import tables
+from table_schema import tables
 from sqlite import SQLiteDB
 
 
@@ -43,7 +44,7 @@ database_info = get_database_info(tables)
 table_details = "\n".join(tables)
 
 
-def init_database(database_info, db_name):
+def init_database(database_info, db_name, init_db=True):
     db_type = os.getenv("DB_TYPE", "sqlite")
     print(f"db_type:{db_type}")
     if db_type == 'mysql':
@@ -64,16 +65,15 @@ def init_database(database_info, db_name):
         db.connect()
         engine = db.conn
 
-    for tab_crate_cmd in tables:
-        db.execute_sql(tab_crate_cmd)
-
-    if db_type == 'sqlite':
-        db.connect()
     # read csv data
-    for tab_name in database_info.keys():
-        df = pd.read_csv(f'csvs/{tab_name}.csv')
-        # write data to MySQL database
-        df.to_sql(tab_name, con=engine, if_exists='append', index=False)
+    if init_db:
+        for tab_crate_cmd in tables:
+            db.execute_sql(tab_crate_cmd)
+
+        for tab_name in database_info.keys():
+            df = pd.read_csv(f'csvs/{tab_name}.csv')
+            # write data to MySQL database
+            df.to_sql(tab_name, con=engine, if_exists='append', index=False)
     return db
 
 

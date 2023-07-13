@@ -10,7 +10,7 @@ from chat import chat_with_ai
 
 def get_steps_from_response(response):
     # Regular expression patterns to extract step number, description, and SQL query
-    pattern = r"Step(\d+):\s+(.*?)\n`(.*?)`"
+    pattern = r"```\nStep(\d+):\s+(.*?)\n(.*?)\n```"
     matches = re.findall(pattern, response, re.DOTALL)
 
     # Extract information and create list of dictionaries
@@ -90,7 +90,8 @@ def generate_chat_responses(user_inp, mysql_db, historical_message):
         return
 
     sql_results_history, new_mem_ops = chain_of_memory(response_steps_list_of_dict, mysql_db)
-
+    # print(sql_results_history)
+    # print(new_mem_ops)
     print("Finish!")
     return
 
@@ -107,7 +108,10 @@ def need_update_sql(input_string):
 
 
 if __name__ == '__main__':
-    mysql_db = init_database(database_info, "try1024")
+    # Whether to build examples using the sample files './csvs/*.csv'. Default is True. If data already exists,
+    # such as in 'try1024.db', you can select False.
+    init_db = True
+    mysql_db = init_database(database_info, "try1024", init_db=init_db)
     his_msgs = []
     print("START!")
     text = input("USER INPUT: ")
